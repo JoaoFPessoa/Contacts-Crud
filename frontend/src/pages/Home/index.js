@@ -9,10 +9,12 @@ import {
     Card,
 } from "./style";
 import { Link } from "react-router-dom";
+import Modal from "../../components/Modal";
 
 export default function Home() {
     return (
         <Container>
+            <Modal />
             <InputSearchContainer>
                 <input type="text" placeholder="Pesquise pelo nome..." />
             </InputSearchContainer>
