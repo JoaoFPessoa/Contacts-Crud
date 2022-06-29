@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export default styled.input`
     width: 100%;
@@ -14,4 +14,10 @@ export default styled.input`
     &:focus {
         border: 2px solid ${({ theme }) => theme.colors.primary.main} !important;
     }
+    ${({ theme, error }) =>
+        error &&
+        css`
+            color: ${theme.colors.danger.main};
+            border: 1px solid ${theme.colors.danger.main} !important;
+        `}
 `;
