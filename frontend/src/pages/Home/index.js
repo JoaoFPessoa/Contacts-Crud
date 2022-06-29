@@ -10,11 +10,12 @@ import {
 } from "./style";
 import { Link } from "react-router-dom";
 import Modal from "../../components/Modal";
+import Loader from "../../components/Loader";
 
 export default function Home() {
     return (
         <Container>
-            <Modal />
+            <Loader />
             <InputSearchContainer>
                 <input type="text" placeholder="Pesquise pelo nome..." />
             </InputSearchContainer>
