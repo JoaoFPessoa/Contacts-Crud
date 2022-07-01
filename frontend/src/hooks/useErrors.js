@@ -12,7 +12,7 @@ export default function useErrors() {
         }
         setErrors((prevState) => [...prevState, { field, message }]);
     }
-    function removeError({ fieldName }) {
+    function removeError(fieldName) {
         setErrors((prevState) =>
             prevState.filter((error) => error.field !== fieldName)
         );
@@ -21,5 +21,5 @@ export default function useErrors() {
         return errors.find((error) => error.field === fieldName)?.message;
     }
 
-    return { setError, removeError, getErrorMsgByFieldName };
+    return { setError, removeError, getErrorMsgByFieldName, errors };
 }

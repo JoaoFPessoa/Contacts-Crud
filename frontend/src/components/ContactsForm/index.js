@@ -6,14 +6,17 @@ import Input from "../Input";
 import Select from "../Select";
 import { ButtonContainer, Form } from "./styles";
 import useErrors from "../../hooks/useErrors";
+import formatPhone from "../../utils/ValidatePhone";
 
 export default function ContactsForm({ buttonLabel }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [category, setCategory] = useState("");
-    const [errors, setErrors] = useState([]);
-    const { setError, removeError, getErrorMsgByFieldName } = useErrors();
+    const { setError, removeError, getErrorMsgByFieldName, errors } =
+        useErrors();
+
+    const isFormValid = name && errors.length === 0;
 
     function handleNameChange(event) {
         setName(event.target.value);
@@ -24,7 +27,9 @@ export default function ContactsForm({ buttonLabel }) {
             removeError("name");
         }
     }
-
+    function handlePhoneChange(event) {
+        setPhone(formatPhone(event.target.value));
+    }
     function validateEmail(event) {
         if (event.target.value && !isEmailValid(event.target.value)) {
             setError({ field: "email", message: "E-mail inválido" });
@@ -54,6 +59,7 @@ export default function ContactsForm({ buttonLabel }) {
 
             <FormGroup error={getErrorMsgByFieldName("email")}>
                 <Input
+                    type="email"
                     error={getErrorMsgByFieldName("email")}
                     placeholder="Email"
                     value={email}
@@ -66,7 +72,8 @@ export default function ContactsForm({ buttonLabel }) {
                 <Input
                     placeholder="Telefone"
                     value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
+                    onChange={handlePhoneChange}
+                    maxLength="15"
                 />
             </FormGroup>
 
@@ -82,7 +89,9 @@ export default function ContactsForm({ buttonLabel }) {
             </FormGroup>
 
             <ButtonContainer>
-                <Button type="submit">{buttonLabel}</Button>
+                <Button disabled={!isFormValid} type="submit">
+                    {buttonLabel}
+                </Button>
             </ButtonContainer>
         </Form>
     );
